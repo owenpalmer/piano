@@ -1,0 +1,50 @@
+/* actual keys*/
+.wkey{
+	padding-bottom:300;
+	padding-left:35;
+	padding-right:35;
+	margin: none;
+	color:#EFEFEF;
+}
+
+.bkey{
+	padding-bottom:180;
+	padding-left:30;
+	padding-right:30;
+	margin-left:-124;
+	color:rgba(0,0,0,0);
+	background-color:rgb(40,40,40);
+}
+
+.reset{
+	padding-bottom:300;
+	padding-left:35;
+	padding-right:35;
+	margin-left:49;
+	color:rgba(0,0,0,0);
+	/* background-color:rgb(255, 0, 0) */
+}
+/* piano roll */
+.wkey-roll{
+	color:rgba(0,0,0,0);
+}
+
+.bkey-roll{
+	color:rgba(0,0,0,0);
+	background-color:rgb(40,40,40);
+}
+
+.reset-roll{
+	color:rgba(0,0,0,0);
+	/* background-color:rgb(255, 0, 0); */
+}
+
+header{
+	font-size:100px;
+	background-color:rgb(100,130,200);
+}
+
+var{
+	font-family: monospace;
+	font-style: bold;
+}

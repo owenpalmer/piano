@@ -19,17 +19,19 @@ function piano_shortcode(){
   wp_localize_script('piano_js', 'something', OP_PIANO_PLUGIN_PATH);
   wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH . "/piano_project/main_style.css");
   require 'index.php';
+  error_log('hola');
   // $content = "<h1>DIGITAL PIANO</h1>
   // <div id='piano_keys'>
   // </div>";
   // return $content;
 }
 
-function customer_admin_page(){
-};
-
-
-
+function customer_admin_page() {
+  ?>
+  hello worlld 
+  <?php
+  // do_shortcode('piano_shortcode');
+}
 
 
 

@@ -43,25 +43,26 @@ jQuery(document).ready(function($){
     [16, "bkey", "#282828"],
     [17, "reset", "#EFEFEF"]
   ];
+  
   //for mapping keys to the piano, not done yet.
   var mapping = [
-    [1,"a"],
-    [2,"w"],
-    [3,"s"],
-    [4,"e"],
-    [5,"d"],
-    [6,"f"],
-    [7,"t"],
-    [8,"g"],
-    [9,"y"],
-    [10,"h"],
-    [11,"u"],
-    [12,"j"],
-    [13,"k"],
-    [14,"o"],
-    [15,"l"],
-    [16,"p"],
-    [17,";"]
+    [1,"a",65],
+    [2,"w",87],
+    [3,"s",83],
+    [4,"e",69],
+    [5,"d",68],
+    [6,"f",70],
+    [7,"t",84],
+    [8,"g",71],
+    [9,"y",89],
+    [10,"h",72],
+    [11,"u",85],
+    [12,"j",74],
+    [13,"k",75],
+    [14,"o",79],
+    [15,"l",76],
+    [16,"p",80],
+    [17,";",186]
   ];
   //piano roll notes array
   var recording = [
@@ -98,6 +99,39 @@ jQuery(document).ready(function($){
     click(key);
     lastnote(note);
   });
+
+
+  // $(document).on('keydown', "button", function(event) {
+  //     for(let i=0;i>mapping.length;i++){
+  //       console.log('cha');
+  //       if(mapping[i][2]==event.keyCode){
+  //         click(mapping[i][0]);
+  //       }
+  //     }
+  // });
+
+  // $(document).on('keydown#piano_keys', "button", function(event) {
+  //     console.log('cha');
+  //     if(event.keyCode==65){
+  //       click(mapping[0][0]);
+  //       console.log('worked');
+  //     }
+  // });
+
+  $(document).off('keyup');
+  $(document).on('keydown', function(event) {
+    for(mapper=0;mapper<mapping.length;mapper++){
+      function logit(){
+        if (event.keyCode == mapping[mapper][2]) {
+            click(mapper+1);
+        }
+      };
+      logit();
+    }
+  });
+
+
+
   //when called by the jquery function, plays an audio file based on the param that it was given.
   function click(key) {
     var audio  = new Audio();
@@ -189,10 +223,16 @@ jQuery(document).ready(function($){
     for(t=0;t<recording.length; t++){
       function inside(t){
         setTimeout(function(){
+          $("#"+t+" button").css('background-color','red');
+          if(t!==0){
+            last = t-1;
+          }
+          $("#"+last+" button").css('background-color','');
           for(n=0;n<=16; n++){
-            console.log(t+"and"+n);
+            // console.log(t+"and"+n);
+            // document.getElementById(toString(n)).style.backgroundColor = "red";
             if(recording[t][n] == "a"){
-              console.log("yes");
+              // console.log("yes");
               var audio  = new Audio();
               file = "assets/key"+(n+1)+".mp3";
               audio.src = file;

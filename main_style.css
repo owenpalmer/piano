@@ -1,26 +1,26 @@
 /* actual keys*/
 .wkey{
-	padding-bottom:300;
-	padding-left:35;
-	padding-right:35;
+	padding-bottom:300px;
+	padding-left:35px;
+	padding-right:35px;
 	margin: none;
 	color:#EFEFEF;
 }
 
 .bkey{
-	padding-bottom:180;
-	padding-left:30;
-	padding-right:30;
-	margin-left:-124;
+	padding-bottom:180px;
+	padding-left:30px;
+	padding-right:30px;
+	margin-left:-124px;
 	color:rgba(0,0,0,0);
 	background-color:rgb(40,40,40);
 }
 
 .reset{
-	padding-bottom:300;
-	padding-left:35;
-	padding-right:35;
-	margin-left:49;
+	padding-bottom:300px;
+	padding-left:35px;
+	padding-right:35px;
+	margin-left:49px;
 	color:rgba(0,0,0,0);
 	/* background-color:rgb(255, 0, 0) */
 }

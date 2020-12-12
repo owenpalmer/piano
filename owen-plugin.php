@@ -22,21 +22,17 @@ if (! class_exists('Owen_Plugin')){
 
     function init_hooks(){
       add_action('admin_menu', array($this, 'customer_menu_pages'));
+      add_shortcode('piano_shortcode', array($this, "piano_shortcode")); 
     }
     
     function customer_menu_pages(){
       add_menu_page( 'Piano', 'Piano', 'manage_options', 'piano', array($this, 'customer_admin_page'), 'dashicons-format-audio', 0);
     }
     
-    function piano_shortcode($words = '') {
-      add_shortcode('piano_shortcode', "piano_shortcode"); 
-    }
-    
-    function customer_admin_page() {
+    function piano_shortcode() {
       wp_enqueue_script('piano_js', OP_PIANO_PLUGIN_PATH."/main_script.js", ['jquery']);
-      wp_localize_script('piano_js', 'something', OP_PIANO_PLUGIN_PATH);
+      wp_localize_script('piano_js', 'owen_plugin_path', OP_PIANO_PLUGIN_PATH);
       wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css");
-      
       $piano = '
       <p>DIGITAL PIANO</p>
       
@@ -55,18 +51,11 @@ if (! class_exists('Owen_Plugin')){
     
         <div id="filltest"></div>
       ';
-      echo $piano;
-      $var = "hello world";
-      echo OP_PIANO_PLUGIN_PATH."/main_script.js";
-      $var.= "anything";
-      $hi = "hello";
-      $earth = "world";
-      $spain = "hola";
-      $ball = "mundo";
-      // echo $hi." -> ".$earth." -> ".$spain." -> ".$ball;
-      echo sprintf ($hi." -> ".$earth." -> ".$spain." -> ".$ball);
-      echo '<br>';
-      echo sprintf ("%s -> %s -> %s -> %s",$hi, $earth, $spain, $ball);
+      return $piano;
+    }
+    
+    function customer_admin_page() {
+      
     }
     
   }

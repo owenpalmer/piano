@@ -117,7 +117,7 @@ jQuery(document).ready(function($){
   //when called by the jquery function, plays an audio file based on the param that it was given.
   function click(key) {
     var audio  = new Audio();
-    file = "https://owenpalmer.com/wp-content/plugins/owen-plugin/assets/key"+key+".mp3";
+    file = owen_plugin_path+"/assets/key"+key+".mp3";
     audio.src = file;
     audio.play();
   }
@@ -218,7 +218,7 @@ jQuery(document).ready(function($){
           for(n=0;n<=16; n++){
             if(recording[t][n] == "a"){
               var audio  = new Audio();
-              file = "https://owenpalmer.com/wp-content/plugins/owen-plugin/assets/key"+(n+1)+".mp3";
+              file = owen_plugin_path+"/assets/key"+(n+1)+".mp3";
               audio.src = file;
               audio.play();
             };

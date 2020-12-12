@@ -99,13 +99,27 @@ jQuery(document).ready(function($){
     click(key);
     lastnote(note);
   });
+
+  $(document).off('keyup');
+  $(document).on('keydown', function(event) {
+    for(mapper=0;mapper<mapping.length;mapper++){
+      function logit(){
+        if (event.keyCode == mapping[mapper][2]) {
+            click(mapper+1);
+        }
+      };
+      logit();
+    }
+  });
+
+
+
   //when called by the jquery function, plays an audio file based on the param that it was given.
   function click(key) {
     var audio  = new Audio();
     file = "https://owenpalmer.com/wp-content/plugins/owen-plugin/assets/key"+key+".mp3";
     audio.src = file;
     audio.play();
-    console.log('the function is working');
   }
   
   function lastnote(note){

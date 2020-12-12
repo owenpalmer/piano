@@ -43,25 +43,26 @@ jQuery(document).ready(function($){
     [16, "bkey", "#282828"],
     [17, "reset", "#EFEFEF"]
   ];
+  
   //for mapping keys to the piano, not done yet.
   var mapping = [
-    [1,"a"],
-    [2,"w"],
-    [3,"s"],
-    [4,"e"],
-    [5,"d"],
-    [6,"f"],
-    [7,"t"],
-    [8,"g"],
-    [9,"y"],
-    [10,"h"],
-    [11,"u"],
-    [12,"j"],
-    [13,"k"],
-    [14,"o"],
-    [15,"l"],
-    [16,"p"],
-    [17,";"]
+    [1,"a",65],
+    [2,"w",87],
+    [3,"s",83],
+    [4,"e",69],
+    [5,"d",68],
+    [6,"f",70],
+    [7,"t",84],
+    [8,"g",71],
+    [9,"y",89],
+    [10,"h",72],
+    [11,"u",85],
+    [12,"j",74],
+    [13,"k",75],
+    [14,"o",79],
+    [15,"l",76],
+    [16,"p",80],
+    [17,";",186]
   ];
   //piano roll notes array
   var recording = [
@@ -85,7 +86,7 @@ jQuery(document).ready(function($){
     $("#piano_roll").append(section);
     //populates the div with buttons with an id that matches the row, and data-key that matches the note
     for (i=0; i< keys.length;i++) {
-      button = '<button data-time = "'+row+'" id="'+row+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys" style="padding:10px 10px 10px 10px"></button>';
+      button = '<button data-time = "'+row+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys" style="padding:10px 10px 10px 10px"></button>';
       $("#"+row).append(button);
     }
   }
@@ -126,9 +127,10 @@ jQuery(document).ready(function($){
     note = parseInt($(this).data('key'));
     time = parseInt($(this).data('time'));
     if(recording[time][note-1] == "o"){
-      $(this).css('background-color', 'grey');
+      $(this).addClass("hit");
     } else {
-      $(this).css('background-color', roll_keys[note-1][2]);
+      $(this).removeClass("hit");
+      // $(this).css('background-color', roll_keys[note-1][2]);
     }
     select(note,time);
   });
@@ -160,7 +162,7 @@ jQuery(document).ready(function($){
       $("#piano_roll").append(section);
       //populates the div with buttons with an id that matches the row, and data-key that matches the note
       for (i=0; i< keys.length;i++) {
-        newbutton = '<button data-time = "'+newrow+'" id="'+newrow+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys" style="padding:10px 10px 10px 10px"></button>';
+        newbutton = '<button data-time = "'+newrow+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys" style="padding:10px 10px 10px 10px"></button>';
         $("#"+newrow).append(newbutton);
       }
     }
@@ -187,13 +189,20 @@ jQuery(document).ready(function($){
   //plays the song based on the "recording" 2d array
   function playsong(){
     console.log(recording.length);
-    for(t=0;t<recording.length; t++){
+    for(t=0;t<=recording.length; t++){
       function inside(t){
         setTimeout(function(){
+          $("#"+t+" button").addClass("played");
+          if(t!==0){
+            last = t-1;
+            $("#"+last+" button").removeClass("played");
+            console.log($("#"+last+" button ").data("key"));
+            for(revertColumn=0;revertColumn<recording[0].length;revertColumn++){
+              console.log(revertColumn);
+            }
+          }
           for(n=0;n<=16; n++){
-            console.log(t+"and"+n);
             if(recording[t][n] == "a"){
-              console.log("yes");
               var audio  = new Audio();
               file = "https://owenpalmer.com/wp-content/plugins/owen-plugin/assets/key"+(n+1)+".mp3";
               audio.src = file;

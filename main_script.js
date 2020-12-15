@@ -82,7 +82,7 @@ jQuery(document).ready(function($){
   // prints out the piano roll
   for(row=0; row< recording.length;row++){
     //creates a div which acts as a row for the buttons to live
-    section = '<div id="'+row+'"></div>';
+    section = '<div id="'+row+'" class="gooddiv"></div>';
     $("#piano_roll").append(section);
     //populates the div with buttons with an id that matches the row, and data-key that matches the note
     for (i=0; i< keys.length;i++) {
@@ -172,7 +172,7 @@ jQuery(document).ready(function($){
     newrow = recording.length-1;
     //this is basically a repeat of the orignal code that prints out the piano roll in the first place.
     function printpianoroll(){
-      section = '<div id="'+newrow+'"></div>';
+      section = '<div id="'+newrow+'" class="gooddiv"></div>';
       $("#piano_roll").append(section);
       //populates the div with buttons with an id that matches the row, and data-key that matches the note
       for (i=0; i< keys.length;i++) {

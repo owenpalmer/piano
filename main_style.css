@@ -3,7 +3,7 @@
 	padding-bottom:300px;
 	padding-left:35px;
 	padding-right:35px;
-	margin: none;
+	margin: -2px;
 	color:#EFEFEF;
 }
 
@@ -11,7 +11,7 @@
 	padding-bottom:180px;
 	padding-left:30px;
 	padding-right:30px;
-	margin-left:-124px;
+	margin-left:-130px;
 	color:rgba(0,0,0,0);
 	background-color:rgb(40,40,40);
 }

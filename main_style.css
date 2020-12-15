@@ -1,5 +1,5 @@
 /* actual keys*/
-.wkey{
+#piano_keys button.wkey{
 	padding-bottom:300px;
 	padding-left:35px;
 	padding-right:35px;
@@ -7,7 +7,7 @@
 	color:#EFEFEF;
 }
 
-.bkey{
+#piano_keys button.bkey{
 	padding-bottom:180px;
 	padding-left:30px;
 	padding-right:30px;
@@ -16,7 +16,7 @@
 	background-color:rgb(40,40,40);
 }
 
-.reset{
+#piano_keys button.reset{
 	padding-bottom:300px;
 	padding-left:35px;
 	padding-right:35px;
@@ -47,4 +47,12 @@ header{
 var{
 	font-family: monospace;
 	font-style: bold;
+}
+
+.hit{
+	background-color:grey;
+}
+
+.played{
+	background-color:red;
 }

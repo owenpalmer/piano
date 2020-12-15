@@ -34,22 +34,24 @@ if (! class_exists('Owen_Plugin')){
       wp_localize_script('piano_js', 'owen_plugin_path', OP_PIANO_PLUGIN_PATH);
       wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css");
       $piano = '
-      <p>DIGITAL PIANO</p>
+      <div id="back-color">
+        <p>DIGITAL PIANO</p>
+        
+        <div id="piano_keys"></div><br>
+        
+        <div id="roll_controls">
+        <br>
+            <button id="playsong">Play Song</button>
+            <button id="addrow">Add Row</button><br><br>
+            <button id="faster">Faster</button>
+            <button id="slower">Slower</button>
+            <var id="speed">Speed:1</var>
+          </div><br>
       
-      <div id="piano_keys"></div><br>
+          <div id="piano_roll"></div>
       
-      <div>
-      <br>
-          <button id="playsong">Play Song</button>
-          <button id="addrow">Add Row</button><br><br>
-          <button id="faster">Faster</button>
-          <button id="slower">Slower</button>
-          <var id="speed">Speed:1</var>
-        </div><br>
-    
-        <div id="piano_roll"></div>
-    
-        <div id="filltest"></div>
+          <div id="filltest"></div>
+      </div>
       ';
       return $piano;
     }

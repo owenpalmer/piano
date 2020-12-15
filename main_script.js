@@ -129,7 +129,7 @@ jQuery(document).ready(function($){
     }
   }
 
-  scrollingElement = (document.scrollingElement || document.body)
+  scrollingElement = (document.scrollingElement || document.body);
   function scrollToBottom () {
     scrollingElement.scrollTop = scrollingElement.scrollHeight;
   }

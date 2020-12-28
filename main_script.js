@@ -80,17 +80,25 @@ jQuery(document).ready(function($){
   }
 
   // prints out the piano roll
-  for(row=0; row< recording.length;row++){
-    //creates a div which acts as a row for the buttons to live
-    section = '<div id="'+row+'" class="gooddiv"></div>';
-    $("#piano_roll").append(section);
-    //populates the div with buttons with an id that matches the row, and data-key that matches the note
-    for (i=0; i< keys.length;i++) {
-      button = '<button data-time = "'+row+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys" style="padding:10px 10px 10px 10px"></button>';
-      $("#"+row).append(button);
+  function make_piano_roll(){
+    $("#piano_roll").empty();
+    for(row=0; row< recording.length;row++){
+      //creates a div which acts as a row for the buttons to live
+      section = '<div id="'+row+'" class="gooddiv"></div>';
+      $("#piano_roll").append(section);
+      //populates the div with buttons with an id that matches the row, and data-key that matches the note
+      for (i=0; i< keys.length;i++) {
+        if(recording[row][i] == "a"){
+          var hit = "hit";
+        }else{
+          var hit = "";
+        }
+        button = '<button data-time = "'+row+'" data-key="'+roll_keys[i][0]+'" class="'+roll_keys[i][1]+'-roll piano_roll_keys '+hit+'" style="padding:10px 10px 10px 10px"></button>';
+        $("#"+row).append(button);
+      }
     }
   }
-  
+  make_piano_roll();
   
   //triggers the click function when a key with a specific data type is pressed.
   $(document).on('mousedown', "button", function() {
@@ -134,6 +142,7 @@ jQuery(document).ready(function($){
     scrollingElement.scrollTop = scrollingElement.scrollHeight;
   }
 
+  $(".header-footer-group").remove();
 
   //calls the select function when a button with the class .piano_roll_keys is clicked. the select function changes the values in the "recording" array.
   $(document).on('mousedown', '.piano_roll_keys', function() {
@@ -188,16 +197,26 @@ jQuery(document).ready(function($){
     playsong();
   });
 
-  $("#faster").on('mousedown', function(){
-    speed -= .05;
-    console.log(speed);
-    $('#speed').html(speed);
-  });
-  $("#slower").on('mousedown', function(){
-    speed += .05;
-    console.log(speed);
-    $('#speed').html(speed);
-  });
+  // $("#faster").on('mousedown', function(){
+  //   speed -= .05;
+  //   console.log(speed);
+  //   $('#speed').html(speed);
+  // });
+  // $("#slower").on('mousedown', function(){
+  //   speed += .05;
+  //   console.log(speed);
+  //   $('#speed').html(speed);
+  // });
+  var slider = document.getElementById("myrange");
+  var output = document.getElementById("output");
+  output.innerHTML = slider.value;
+  var speed = 50;
+
+  slider.oninput = function(){
+    output.innerHTML = slider.value;
+    speed = slider.value;
+  }
+
 
 
   //plays the song based on the "recording" 2d array
@@ -223,21 +242,61 @@ jQuery(document).ready(function($){
               audio.play();
             };
           };
-        }, (speed*500)*t);
+        }, ((101-speed)*10)*t);
       }
       inside(t);
     };
   };
 
-  $(document).on('click', '.piano_roll_keys', function(e) {
+  var songstoload = "10";
+
+  function fillwithsongs(){
     $.ajax({
-      type: 'GET',
+      type: 'POST',
+      dataType:'JSON',
+      url: 'https://owenpalmer.com/wp-content/plugins/owen-plugin/loadsongs.php',
+      data: {test:songstoload}
+    }).done(function(response) {
+      console.log(response);
+      for(let i=0;i<songstoload;i++){
+        $("#songs_list").prepend("<div id='"+response[i].ID+"'><span class='title'>"+response[i].title+"</spand><span> by </span><span class='name'>"+response[i].name+"</span><button id='load' data-song='"+response[i].ID+"'>Load</button></div>");
+      }
+    })
+  }
+  fillwithsongs();
+
+  $(document).on('click', '#save', function(e) {
+    $("#songs_list").prepend("<div id='save-window'><label for='yourname'>Your Name</label><input type='text' id='yourname' name='yourname'><label for='title'>Song Name</label><input type='text' id='title' name='title'><br><button id='uploadtodb'>Upload To Database</button></div>");
+  });
+  
+  $(document).on('click', '#uploadtodb', function(e) {
+    var yourname = document.getElementById("yourname").value;
+    var title = document.getElementById("title").value;
+    console.log(yourname+title);
+    $.ajax({
+      type: 'POST',
       dataType: 'JSON',
-      url: 'https://lunatechnw.com/wp-content/plugins/lunatech/js/ajax/handler.php',
-      data: {number: 2},
+      url: 'https://owenpalmer.com/wp-content/plugins/owen-plugin/addstuff.php',
+      data: {song: recording, name:yourname, title:title},
     }).done(function(response) {
       console.log(response);
     })
+    $("#songs_list").empty();
+    fillwithsongs();
   });
-  
+
+  $(document).on('click', '#load', function(e) {
+    console.log($(this).data("song"));
+    $.ajax({
+      type: 'POST',
+      dataType: 'JSON',
+      url: 'https://owenpalmer.com/wp-content/plugins/owen-plugin/takestuff.php',
+      data: {load: $(this).data("song")}
+    }).done(function(response) {
+      console.log(response);
+      recording = response;
+      make_piano_roll();
+    })
+  });
+
 });

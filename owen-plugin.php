@@ -17,14 +17,32 @@ if (! class_exists('Owen_Plugin')){
   class Owen_Plugin {
 
     function __construct() {
+      $this->includes();
       $this->init_hooks();
+      function r($content = '', $title = '', $log = true) {
+  
+        $response = print_r($content, 1);
+  
+        if ($log) {
+          error_log($title . $response);
+        }else {
+          echo "<pre>".$title." ".$response."</pre>";
+        }
+      }
+    }
+
+
+    function includes(){
+      require_once("classes/install.php");
     }
 
     function init_hooks(){
+      register_activation_hook(__FILE__,array("OP_Install",'install_tables'));
       add_action('admin_menu', array($this, 'customer_menu_pages'));
       add_shortcode('piano_shortcode', array($this, "piano_shortcode")); 
+
     }
-    
+
     function customer_menu_pages(){
       add_menu_page( 'Piano', 'Piano', 'manage_options', 'piano', array($this, 'customer_admin_page'), 'dashicons-format-audio', 0);
     }
@@ -33,33 +51,14 @@ if (! class_exists('Owen_Plugin')){
       wp_enqueue_script('piano_js', OP_PIANO_PLUGIN_PATH."/main_script.js", ['jquery']);
       wp_localize_script('piano_js', 'owen_plugin_path', OP_PIANO_PLUGIN_PATH);
       wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css");
-      $piano = '
-      <div id="back-color">
-        <p>DIGITAL PIANO</p>
-        
-        <div id="piano_keys"></div><br>
-        
-        <div id="roll_controls">
-        <br>
-            <button id="playsong">Play Song</button>
-            <button id="addrow">Add Row</button><br><br>
-            <button id="faster">Faster</button>
-            <button id="slower">Slower</button>
-            <var id="speed">Speed:1</var>
-          </div><br>
-      
-          <div id="piano_roll"></div>
-      
-          <div id="filltest"></div>
-      </div>
-      ';
+      $piano = file_get_contents("https://owenpalmer.com/wp-content/plugins/owen-plugin/content.html");
       return $piano;
     }
     
     function customer_admin_page() {
       
     }
-    
+
   }
 };
 

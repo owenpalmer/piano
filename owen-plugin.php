@@ -31,7 +31,6 @@ if (! class_exists('Owen_Plugin')){
       }
     }
 
-
     function includes(){
       require_once("classes/install.php");
     }

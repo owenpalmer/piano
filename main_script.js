@@ -106,6 +106,12 @@ jQuery(document).ready(function($){
     note = $(this).data('time');
     click(key);
     lastnote(note);
+    $('[data-key="'+(key)+'"]').addClass("pressdown");
+  });
+
+  $(document).on('mouseup', "button", function() {
+    key = $(this).data('key');
+    $('[data-key="'+(key)+'"]').removeClass("pressdown");
   });
 
   $(document).off('keyup');
@@ -113,7 +119,19 @@ jQuery(document).ready(function($){
     for(mapper=0;mapper<mapping.length;mapper++){
       function logit(){
         if (event.keyCode == mapping[mapper][2]) {
-            click(mapper+1);
+          click(mapper+1);
+          $('[data-key="'+(mapper+1)+'"]').addClass("pressdown");
+        }
+      };
+      logit();
+    }
+  });
+
+  $(document).on('keyup', function(event) {
+    for(mapper=0;mapper<mapping.length;mapper++){
+      function logit(){
+        if (event.keyCode == mapping[mapper][2]) {
+          $('[data-key="'+(mapper+1)+'"]').removeClass("pressdown");
         }
       };
       logit();
@@ -124,6 +142,7 @@ jQuery(document).ready(function($){
 
   //when called by the jquery function, plays an audio file based on the param that it was given.
   function click(key) {
+    console.log(key);
     var audio  = new Audio();
     file = owen_plugin_path+"/assets/key"+key+".mp3";
     audio.src = file;
@@ -142,7 +161,7 @@ jQuery(document).ready(function($){
     scrollingElement.scrollTop = scrollingElement.scrollHeight;
   }
 
-  $(".header-footer-group").remove();
+  // $(".header-footer-group").remove();
 
   //calls the select function when a button with the class .piano_roll_keys is clicked. the select function changes the values in the "recording" array.
   $(document).on('mousedown', '.piano_roll_keys', function() {
@@ -248,8 +267,9 @@ jQuery(document).ready(function($){
     };
   };
 
-  var songstoload = "10";
-
+  var songloadindex = 0;
+  var songstoload = songloadindex+100;
+  
   function fillwithsongs(){
     $.ajax({
       type: 'POST',
@@ -258,18 +278,35 @@ jQuery(document).ready(function($){
       data: {test:songstoload}
     }).done(function(response) {
       console.log(response);
-      for(let i=0;i<songstoload;i++){
-        $("#songs_list").prepend("<div id='"+response[i].ID+"'><span class='title'>"+response[i].title+"</spand><span> by </span><span class='name'>"+response[i].name+"</span><button id='load' data-song='"+response[i].ID+"'>Load</button></div>");
+      console.log(songloadindex+"yoooaaaa");
+      console.log(songstoload+"yo");
+      for(let i=songloadindex;i<songstoload;i++){
+        $("#songs_list").prepend("<div class='loaded_blocks' id='"+response[i].ID+"'><span class='title'>"+response[i].title+"</spand><span> by </span><span class='name'>"+response[i].name+"</span><button id='load' data-song='"+response[i].ID+"'>Load</button></div>");
       }
     })
+    // $("#songs_list").append("<button id='showmore'>Show More</button>");
   }
   fillwithsongs();
+  
+  // $(document).on('click', '#showmore', function(){
+  //   $('#showmore').remove();
+  //   songloadindex += 5;
+  //   fillwithsongs();
+  // });
 
+
+  var saveopen = 0;
   $(document).on('click', '#save', function(e) {
-    $("#songs_list").prepend("<div id='save-window'><label for='yourname'>Your Name</label><input type='text' id='yourname' name='yourname'><label for='title'>Song Name</label><input type='text' id='title' name='title'><br><button id='uploadtodb'>Upload To Database</button></div>");
+    if(saveopen == 0){
+      $("#songs_list").prepend("<div id='save-window'><label for='yourname'>Your Name</label><input type='text' id='yourname' name='yourname'><label for='title'>Song Name</label><input type='text' id='title' name='title'><br><button id='uploadtodb'>Upload To Database</button></div><br>");
+      saveopen = 1;
+      console.log(saveopen);
+    };
   });
   
   $(document).on('click', '#uploadtodb', function(e) {
+    saveopen = 0;
+    console.log(saveopen);
     var yourname = document.getElementById("yourname").value;
     var title = document.getElementById("title").value;
     console.log(yourname+title);

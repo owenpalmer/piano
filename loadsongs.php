@@ -5,7 +5,7 @@ $test = $_POST['test'];
 
 $load = $wpdb->get_results(
     $wpdb->prepare(
-        "SELECT * FROM wp_piano LIMIT %d", 
+        "SELECT * FROM wp_piano LIMIT %d",
         $test)
 );
 

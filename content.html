@@ -6,11 +6,20 @@
       <button id="playsong">Play Song</button>
       <button id="addrow">Add Row</button>
       <button id="save">Save</button>
+      <button id="permalink">Permalink</button>
       <!-- <button id="load">Load</button><br> -->
       <span>Speed:</span><span id="output">50</span>
       <div class="slidercontainer">
         <input type="range" min="1" max="100" value="50" class="slider" id="myrange">
       </div>
+      <div class="selection">
+        <label for="sounds">Choose a sound:</label>
+        <select name="sounds" id="sounds">
+          <option value="normal">Normal</option>
+          <option value="sustained">Sustain</option>
+          <option value="amerispec">Tobin</option>
+        </select>
+      </div><br>
       <div id="piano_roll"></div> 
   </div><br>
 

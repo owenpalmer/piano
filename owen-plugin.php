@@ -3,7 +3,6 @@
 * Plugin Name: owen-plugin
 * Description: Piano
 */
-
 use function WP_CLI_Login\init_server_from_request;
 
 define( 'OP_PIANO_PLUGIN_FILE', __FILE__ );
@@ -19,16 +18,6 @@ if (! class_exists('Owen_Plugin')){
     function __construct() {
       $this->includes();
       $this->init_hooks();
-      function r($content = '', $title = '', $log = true) {
-  
-        $response = print_r($content, 1);
-  
-        if ($log) {
-          error_log($title . $response);
-        }else {
-          echo "<pre>".$title." ".$response."</pre>";
-        }
-      }
     }
 
     function includes(){
@@ -49,6 +38,8 @@ if (! class_exists('Owen_Plugin')){
     function piano_shortcode() {
       wp_enqueue_script('piano_js', OP_PIANO_PLUGIN_PATH."/main_script.js", ['jquery']);
       wp_localize_script('piano_js', 'owen_plugin_path', OP_PIANO_PLUGIN_PATH);
+      wp_localize_script('piano_js', 'importhash', $_GET["song"]);
+      wp_localize_script('piano_js', 'importremainder', $_GET["r"]);
       wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css");
       $piano = file_get_contents("https://owenpalmer.com/wp-content/plugins/owen-plugin/content.html");
       return $piano;

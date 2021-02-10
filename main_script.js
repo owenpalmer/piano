@@ -43,8 +43,7 @@ jQuery(document).ready(function($){
     [16, "bkey", "#282828"],
     [17, "reset", "#EFEFEF"]
   ];
-  
-  //for mapping keys to the piano, not done yet.
+
   var mapping = [
     [1,"a",65],
     [2,"w",87],
@@ -151,7 +150,7 @@ jQuery(document).ready(function($){
   
   function make_song_from_hash(importhash, importremainder){
     var hashtobin = "";
-    splithash = importhash.split("");//splithash in now an array of all the hash characters
+    splithash = importhash.split("");//splithash is now an array of all the hash characters
     //loops through all elements of the split hash array
     console.log(splithash);
     for(let i=0;i<splithash.length;i++){
@@ -180,10 +179,10 @@ jQuery(document).ready(function($){
     }
   }
   
+  //starts the decoding process on page load
   if(importhash !== null){
     make_song_from_hash(importhash, importremainder);
   }
-  // console.log(recording);
   
   //returns the given 2d array as a solid string
   function return_m_array_to_string(array){
@@ -215,7 +214,6 @@ jQuery(document).ready(function($){
     //puts the hash and remainder in url bar
     recording_to_url(hash);
   }
-  
   
   $(document).on('click', '#permalink', function(e) {
     compress_array_string(recording);

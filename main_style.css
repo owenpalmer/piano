@@ -1,50 +1,181 @@
-/* actual keys*/
-.wkey{
-	padding-bottom:300;
-	padding-left:35;
-	padding-right:35;
-	margin: none;
-	color:#EFEFEF;
+#piano_keys button.wkey{
+	padding-bottom:300px;
+	padding-left:35px;
+	padding-right:35px;
+	margin: -2px;
+    background-color:rgb(230, 230, 230);
+    border-radius: 10px;
+    border-width:medium;
+    border-color:black;
+    border-style:solid;
+    color:rgba(0, 0, 0, 0);
 }
 
-.bkey{
-	padding-bottom:180;
-	padding-left:30;
-	padding-right:30;
-	margin-left:-124;
+#piano_keys button.bkey{
+    padding-bottom:180px;
+	padding-left:30px;
+	padding-right:30px;
+	margin-left:-130px;
 	color:rgba(0,0,0,0);
-	background-color:rgb(40,40,40);
+	background-color:rgb(49, 49, 49);
+    border-radius: 10px;
+    border-width:medium;
+    border-color:black;
+    border-style:solid;
 }
 
-.reset{
-	padding-bottom:300;
-	padding-left:35;
-	padding-right:35;
-	margin-left:49;
-	color:rgba(0,0,0,0);
-	/* background-color:rgb(255, 0, 0) */
-}
-/* piano roll */
-.wkey-roll{
-	color:rgba(0,0,0,0);
-}
-
-.bkey-roll{
-	color:rgba(0,0,0,0);
-	background-color:rgb(40,40,40);
+#piano_keys button.reset{
+    color:rgba(0, 0, 0, 0);
+    padding-bottom:300px;
+	padding-left:35px;
+	padding-right:35px;
+	margin-left:49px;
+	background-color:rgb(230, 230, 230);
+    border-radius: 10px;
+    border-width:medium;
+    border-color:black;
+    border-style:solid;
 }
 
-.reset-roll{
-	color:rgba(0,0,0,0);
-	/* background-color:rgb(255, 0, 0); */
+#piano_roll button{
+    border-radius: 3px;
 }
 
-header{
-	font-size:100px;
-	background-color:rgb(100,130,200);
+#piano_roll button.wkey-roll{
+    background-color:rgb(250, 250, 250);
+    border-radius: 3px;
+    border-width:thin;
+    border-color:black;
+    border-style:solid;
 }
+
+#piano_roll button.bkey-roll{
+    background-color:rgb(40,40,40);
+    border-radius: 3px;
+    border-width:thin;
+    border-color:black;
+    border-style:solid;
+}
+
+#piano_roll button.reset-roll{
+    background-color:rgb(250, 250, 250);
+    border-radius: 3px;
+    border-width:thin;
+    border-color:black;
+    border-style:solid;
+}
+
 
 var{
-	font-family: monospace;
+    font-family: monospace;
 	font-style: bold;
 }
+
+#piano_roll button.hit{
+    background-color:grey;
+}
+
+#piano_keys button.pressdown{
+    background-color: rgb(58, 96, 105);
+}
+
+#piano_roll button.played{
+    background-color:red;
+}
+
+#roll_controls button{
+    background-color:rgb(116, 108, 85);
+    border-radius: 3px;
+    color: black;
+}
+
+#songs_list button{
+    background-color:rgb(116, 108, 85);
+    border-radius: 3px;
+    color: black;
+    float: inherit;
+    padding-top:6px;
+    padding-bottom:5px;
+    padding:6px 5px 5px;
+}
+div.gooddiv{
+    font-size: 0px;
+}
+
+div.loaded_blocks{
+    background-color: rgba(100, 130, 200, 0.329);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* slider styles from w3 */
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 82%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #70644d; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 10%; 
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #70644d; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 10%; 
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+} 
+
+.footer-nav-widgets-wrapper {
+    display: none;
+}
+
+#site-footer {
+    display: none;
+}
+
+#stunning-section {
+    display: none;
+}
+
+/* #site-header {
+    display: none;
+} */
+
+/* #header-spacer {
+    display: none;
+} */
+
+/* header{
+    font-size:100px;
+    background-color:rgb(100,130,200);
+} */

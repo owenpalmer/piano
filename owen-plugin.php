@@ -36,11 +36,19 @@ if (! class_exists('Owen_Plugin')){
     }
     
     function piano_shortcode() {
-      wp_enqueue_script('piano_js', OP_PIANO_PLUGIN_PATH."/main_script.js", ['jquery']);
+      wp_enqueue_script('piano_js', OP_PIANO_PLUGIN_PATH."/main_script.js", ['jquery'], time());
       wp_localize_script('piano_js', 'owen_plugin_path', OP_PIANO_PLUGIN_PATH);
-      wp_localize_script('piano_js', 'importhash', $_GET["song"]);
-      wp_localize_script('piano_js', 'importremainder', $_GET["r"]);
-      wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css");
+      if(isset($_GET['song'])){
+        wp_localize_script('piano_js', 'importhash', $_GET["song"]);
+      }else{
+        wp_localize_script('piano_js', 'importhash', "");
+      }
+      if(isset($_GET['r'])){
+        wp_localize_script('piano_js', 'importremainder', $_GET["r"]);
+      }else{
+        wp_localize_script('piano_js', 'importremainder', "");
+      }
+      wp_enqueue_style('piano_css', OP_PIANO_PLUGIN_PATH."/main_style.css", time());
       $piano = file_get_contents("https://owenpalmer.com/wp-content/plugins/owen-plugin/content.html");
       return $piano;
     }
